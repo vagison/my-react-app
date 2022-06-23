@@ -7,7 +7,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          PEdit <code>src/App.js</code> and save to reload.
+          Edit Piaf <code>src/App.js</code> and save to reload.
         </p>
         <a
           className="App-link"

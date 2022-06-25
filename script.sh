@@ -1,9 +1,8 @@
 # adding env variables from .env
+echo "##### Adding env variables from root folder's .env"
 set -a
-. ./.env
+. ../.env
 set +a
-
-printenv
 
 # installing dependencies
 echo "##### Installing dependencies"
@@ -26,7 +25,6 @@ if [ $? -eq 0 ]; then # if dependencies installation went successfull
         cd $REPO_FOLDER
         # copying build files into temporary folder
         echo "##### Copying build files into temporary folder"
-        # sleep 30
         cp -r build ../$TEMP_FOLDER
         # switching to versions containing folder
         echo "##### Switching to versions containing folder"
@@ -34,7 +32,6 @@ if [ $? -eq 0 ]; then # if dependencies installation went successfull
         # killing running app
         echo "##### Killing the running app on port $PORT"
         fuser -k $PORT/tcp
-        # sleep 5
         # changing running folder's name into old
         echo "##### Changing running folder's name into old"
         mv $RUNNING_FOLDER $OLD_FOLDER

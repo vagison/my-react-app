@@ -12,7 +12,8 @@ if [ $? -eq 0 ]; then # if dependencies installation went successfull
     # running build process
     echo "##### Running build process"
     npm run build
-    if [ $? -eq 0 ]; then # if buld process went successfull
+    if [ $? -eq 0 ]; then
+        # if buld process went successfull
         echo "##### Build process went successfull"
         # switching to versions containing folder
         echo "##### Switching to versions containing folder"
@@ -29,9 +30,9 @@ if [ $? -eq 0 ]; then # if dependencies installation went successfull
         # switching to versions containing folder
         echo "##### Switching to versions containing folder"
         cd ../
-        # killing running app
-        echo "##### Killing the running app on port $PORT"
-        fuser -k $PORT/tcp
+        # stopping running app
+        echo "##### Stopping running app"
+        pm2 stop my-react-app
         # changing running folder's name into old
         echo "##### Changing running folder's name into old"
         mv $RUNNING_FOLDER $OLD_FOLDER
@@ -42,8 +43,9 @@ if [ $? -eq 0 ]; then # if dependencies installation went successfull
         echo "##### Switching to running folder"
         cd $RUNNING_FOLDER
         # running the app
-        echo "##### Running the app on port $PORT"
-        serve -s build -l $PORT &>filename.log &
+        echo "##### Running the app"
+        # pm2 start "serve -s build -l $PORT" --name my-react-app
+        pm2 start my-react-app
         echo "##### Enjoy the app!"
         # switching to versions containing folder
         echo "##### Switching to versions containing folder"

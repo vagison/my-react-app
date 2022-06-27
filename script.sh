@@ -1,8 +1,10 @@
 # adding env variables from .env
 echo "##### Adding env variables from root folder's .env"
-set -a
-. ../.env
-set +a
+export PORT=3001
+export REPO_FOLDER=./my-react-app/
+export RUNNING_FOLDER=./running/
+export TEMP_FOLDER=./tmp/
+export OLD_FOLDER=./old/
 
 # installing dependencies
 echo "##### Installing dependencies"

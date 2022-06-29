@@ -5,6 +5,6 @@ files:
     destination: /home/ubuntu/testingReact/my-react-app
 hooks:
   ApplicationStart:
-    - location: ./scripts.sh
+    - location: ./script.sh
       timeout: 300
       runas: ubuntu

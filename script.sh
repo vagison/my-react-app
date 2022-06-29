@@ -1,11 +1,14 @@
-# adding env variables from .env
-echo "##### Adding env variables"
+# adding variables
+echo "##### Adding variables"
 PORT=3001
 REPO_FOLDER=./my-react-app/
 RUNNING_FOLDER=./running/
 RUNNING_APP_NAME=myReactApp
 TEMP_FOLDER=./tmp/
 OLD_FOLDER=./old/
+
+# switching to repo folder
+cd /home/ubuntu/testingReact/my-react-app
 
 # installing dependencies
 echo "##### Installing dependencies"

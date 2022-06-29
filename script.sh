@@ -1,10 +1,11 @@
 # adding env variables from .env
-echo "##### Adding env variables from root folder's .env"
-export PORT=3001
-export REPO_FOLDER=./my-react-app/
-export RUNNING_FOLDER=./running/
-export TEMP_FOLDER=./tmp/
-export OLD_FOLDER=./old/
+echo "##### Adding env variables"
+PORT=3001
+REPO_FOLDER=./my-react-app/
+RUNNING_FOLDER=./running/
+RUNNING_APP_NAME=myReactApp
+TEMP_FOLDER=./tmp/
+OLD_FOLDER=./old/
 
 # installing dependencies
 echo "##### Installing dependencies"
@@ -23,18 +24,13 @@ if [ $? -eq 0 ]; then # if dependencies installation went successfull
         # creating temporary folder
         echo "##### Creating temporary folder"
         mkdir $TEMP_FOLDER
-        # switching to the repo folder
-        echo "##### Switching to the repo folder"
-        cd $REPO_FOLDER
         # copying build files into temporary folder
         echo "##### Copying build files into temporary folder"
-        cp -r build ../$TEMP_FOLDER
-        # switching to versions containing folder
-        echo "##### Switching to versions containing folder"
-        cd ../
+        cp -r $REPO_FOLDER. $TEMP_FOLDER
+        # cp nuxt.config.js $TEMP_FOLDER/nuxt.config.js
         # stopping running app
         echo "##### Stopping running app"
-        pm2 stop my-react-app
+        pm2 stop $RUNNING_APP_NAME
         # changing running folder's name into old
         echo "##### Changing running folder's name into old"
         mv $RUNNING_FOLDER $OLD_FOLDER
@@ -44,10 +40,18 @@ if [ $? -eq 0 ]; then # if dependencies installation went successfull
         # switching to running folder
         echo "##### Switching to running folder"
         cd $RUNNING_FOLDER
-        # running the app
-        echo "##### Running the app"
-        # pm2 start "serve -s build -l $PORT" --name my-react-app
-        pm2 start my-react-app
+        # checking if the running app's process exists
+        echo "##### Checking if the running app's process exists"
+        pm2 show $RUNNING_APP_NAME
+        if [ $? -eq 0 ]; then # running app's process exists
+            # running app's process exists, launching the app
+            echo "##### Running app's process exists, launching the app"
+            pm2 start $RUNNING_APP_NAME
+        else
+            # running app's process doesn't exist, creating a process for it and then launching it
+            echo "##### Running app's process doesn't exist, creating a process for it and then launching it"
+            pm2 start "serve -s build -l $PORT" --name $RUNNING_APP_NAME
+        fi
         echo "##### Enjoy the app!"
         # switching to versions containing folder
         echo "##### Switching to versions containing folder"

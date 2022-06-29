@@ -1,6 +1,7 @@
 # adding variables
 echo "##### Adding variables"
 PORT=3001
+ROOT_FOLDER=/home/ubuntu/testingReact/
 REPO_FOLDER=./my-react-app/
 RUNNING_FOLDER=./running/
 RUNNING_APP_NAME=myReactApp
@@ -8,7 +9,11 @@ TEMP_FOLDER=./tmp/
 OLD_FOLDER=./old/
 
 # switching to repo folder
-cd /home/ubuntu/testingReact/my-react-app
+cd ${ROOT_FOLDER}
+cd ${REPO_FOLDER}
+
+# removing package-lock.json
+rm package-lock.json
 
 # installing dependencies
 echo "##### Installing dependencies"

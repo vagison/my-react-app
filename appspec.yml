@@ -5,14 +5,14 @@ files:
     destination: /home/ubuntu/testingReact/my-react-app
 hooks:
   ApplicationStop:
-    - location: ./scripts/application_stop.sh
+    - location: scripts/application_stop.sh
       timeout: 30
-      runas: ubuntu
+      runas: root
   BeforeInstall:
-    - location: ./scripts/before_install.sh
+    - location: scripts/before_install.sh
       timeout: 30
-      runas: ubuntu
+      runas: root
   ApplicationStart:
-    - location: ./scripts/scripts.sh
+    - location: scripts/scripts.sh
       timeout: 30
-      runas: ubuntu
+      runas: root

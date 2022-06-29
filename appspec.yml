@@ -3,16 +3,3 @@ os: linux
 files:
   - source: /
     destination: /home/ubuntu/testingReact/
-hooks:
-  ApplicationStop:
-    - location: scripts/application_stop.sh
-      timeout: 30
-      runas: ubuntu
-  BeforeInstall:
-    - location: scripts/before_install.sh
-      timeout: 30
-      runas: ubuntu
-  ApplicationStart:
-    - location: scripts/scripts.sh
-      timeout: 30
-      runas: ubuntu

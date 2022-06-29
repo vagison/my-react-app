@@ -2,4 +2,9 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/ubuntu/testingReact/
+    destination: /home/ubuntu/testingReact/my-react-app
+hooks:
+  ApplicationStart:
+    - location: ./scripts.sh
+      timeout: 300
+      runas: ubuntu

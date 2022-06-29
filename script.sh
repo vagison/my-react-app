@@ -1,7 +1,7 @@
 # adding variables
 echo "##### Adding variables"
 PORT=3001
-ROOT_FOLDER=/home/ubuntu/testingReact/
+ROOT_FOLDER=~/testingReact/
 REPO_FOLDER=./my-react-app/
 RUNNING_FOLDER=./running/
 RUNNING_APP_NAME=myReactApp

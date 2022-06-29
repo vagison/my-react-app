@@ -1,3 +1,10 @@
+# starting the magic
+echo "######################"
+echo "######################"
+echo "The magic is about to start!"
+echo "######################"
+echo "######################"
+
 # adding variables
 echo "##### Adding variables"
 PORT=3001
@@ -69,6 +76,11 @@ if [ $? -eq 0 ]; then # if dependencies installation went successfull
         # removing old folder
         echo "##### Removing old folder"
         rm -rf $OLD_FOLDER
+        echo "######################"
+        echo "######################"
+        echo "The magic is over, but not forever!"
+        echo "######################"
+        echo "######################"
     else
         echo "##### There was an error during build phase"
     fi

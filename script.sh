@@ -20,10 +20,6 @@ echo "##### Switching to repo folder"
 cd ${ROOT_FOLDER}
 cd ${REPO_FOLDER}
 
-# removing package-lock.json
-echo "##### Removing package-lock.json"
-rm package-lock.json
-
 # installing dependencies
 echo "##### Installing dependencies"
 npm install

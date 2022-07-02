@@ -37,6 +37,18 @@ echo $COMMIT_MESSAGE
 echo "Brrr"
 # -------------------------------------
 
+# -------------------------------------
+# the repo is successfully pulled from the source
+MESSAGE="Deployment is successfully pulled \nn Commit ID: ${COMMIT_ID} \n Commit message: ${COMMIT_MESSAGE}"
+echo ${MESSAGE}
+node ${DISCORD_BOT_PATH} ${DISCORD_BOT_ENV_FILE_PATH} ${MESSAGE}
+if [ $? -eq 0 ]; then
+    echo "Discord Bot's sent the message."
+else
+    echo "There was an error with the bot."
+fi
+# -------------------------------------
+
 # # installing dependencies
 # echo "##### Installing dependencies"
 # npm install

@@ -8,23 +8,40 @@ echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 # adding variables
 echo "Adding variables."
-PIPELINE_NAME=my-react-app-pipeline
+
+# port variable
 PORT=3001
-RUNNING_APP_NAME=myReactApp
+# foldering variables
 ROOT_FOLDER=~/testingReact/
 REPO_FOLDER=./my-react-app/
 RUNNING_FOLDER=./running/
 TEMP_FOLDER=./tmp/
 OLD_FOLDER=./old/
+# pipeline variables
+PIPELINE_NAME=my-react-app-pipeline
+# app variables
+RUNNING_APP_NAME=myReactApp
+# discord bot variables
 DISCORD_BOT_PATH="../discord-bot/src/bot.js"
 DISCORD_BOT_ENV_FILE_PATH="../discord-bot/.env"
 MESSAGE=""
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
+# switching to the root folder
+echo "Switching to the root folder."
+cd ${ROOT_FOLDER}
+# ----------------------------------------------------------------------------------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------------------------------------------------------------------------------
+# removing old build's folder
+echo "Removing old build's folder."
+rm -rf $OLD_FOLDER
+# ----------------------------------------------------------------------------------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------------------------------------------------------------------------------
 # switching to the repo folder
 echo "Switching to the repo folder"
-cd ${ROOT_FOLDER}
 cd ${REPO_FOLDER}
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -99,8 +116,8 @@ if [ $? -eq 0 ]; then
             echo "There was an error with the bot."
         fi
 
-        # switching to versions containing folder
-        echo "Switching to versions containing folder."
+        # switching to the root folder
+        echo "Switching to the root folder."
         cd ../
 
         # creating temporary folder
@@ -152,14 +169,6 @@ if [ $? -eq 0 ]; then
         else
             echo "There was an error with the bot."
         fi
-
-        # switching to versions containing folder
-        echo "Switching to versions containing folder."
-        cd ../
-
-        # removing old folder
-        echo "Removing old folder."
-        rm -rf $OLD_FOLDER
 
     # if there was an error during build phase
     else

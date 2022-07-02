@@ -29,7 +29,7 @@ aws codepipeline get-pipeline-state --name my-react-app-pipeline > pipeline-info
 # -------------------------------------
 # extracting commit ID and message from pipeline-info.json file
 echo "Extracting commit ID and message from pipeline-info.json file"
-COMMIT_ID=$(jq '.stageStates[0] | .actionStates[0] | .latestExecution | .summary' test.json)
+COMMIT_ID=$(jq '.stageStates[0] | .actionStates[0] | .latestExecution | .summary' pipeline-info.json)
 # COMMIT_MESSAGE=$(git log --format=%B -n 1 ${COMMIT_ID})
 echo COMMIT_ID
 # -------------------------------------

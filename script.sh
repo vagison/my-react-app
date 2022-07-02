@@ -30,8 +30,9 @@ aws codepipeline get-pipeline-state --name my-react-app-pipeline > pipeline-info
 # extracting commit ID and message from pipeline-info.json file
 echo "Extracting commit ID and message from pipeline-info.json file"
 COMMIT_ID=$(jq -r '.stageStates[0] | .actionStates[0] | .latestExecution | .externalExecutionId' pipeline-info.json)
-# COMMIT_MESSAGE=$(git log --format=%B -n 1 ${COMMIT_ID})
+COMMIT_MESSAGE=$(jq -r '.stageStates[0] | .actionStates[0] | .latestExecution | .summary' pipeline-info.json)
 echo $COMMIT_ID
+echo $COMMIT_MESSAGE
 # -------------------------------------
 
 # # installing dependencies

@@ -14,6 +14,7 @@ RUNNING_FOLDER=./running/
 RUNNING_APP_NAME=myReactApp
 TEMP_FOLDER=./tmp/
 OLD_FOLDER=./old/
+PIPELINE_NAME=my-react-app-pipeline
 
 # switching to repo folder
 echo "##### Switching to repo folder"
@@ -23,16 +24,17 @@ cd ${REPO_FOLDER}
 # -------------------------------------
 # saving pipeline logs to pipeline-info.json file
 echo "Saving pipeline logs to pipeline-info.json file."
-aws codepipeline get-pipeline-state --name my-react-app-pipeline > pipeline-info.json
+aws codepipeline get-pipeline-state --name ${PIPELINE_NAME} > pipeline-info.json
 # -------------------------------------
 
 # -------------------------------------
 # extracting commit ID and message from pipeline-info.json file
 echo "Extracting commit ID and message from pipeline-info.json file"
 COMMIT_ID=$(jq -r '.stageStates[0] | .actionStates[0] | .latestExecution | .externalExecutionId' pipeline-info.json)
-COMMIT_MESSAGE=$(jq -r '.stageStates[0] | .actionStates[0] | .latestExecution | .summary' pipeline-info.json | jq '.CommitMessage')
+COMMIT_MESSAGE=$(jq -r '.stageStates[0] | .actionStates[0] | .latestExecution | .summary' pipeline-info.json | jq -r '.CommitMessage')
 echo $COMMIT_ID
 echo $COMMIT_MESSAGE
+echo "Brrr"
 # -------------------------------------
 
 # # installing dependencies

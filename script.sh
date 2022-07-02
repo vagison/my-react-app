@@ -14,6 +14,8 @@ RUNNING_FOLDER=./running/
 RUNNING_APP_NAME=myReactApp
 TEMP_FOLDER=./tmp/
 OLD_FOLDER=./old/
+DISCORD_BOT_PATH="../discord-bot/src/bot.js"
+DISCORD_BOT_ENV_FILE_PATH="../discord-bot/.env"
 PIPELINE_NAME=my-react-app-pipeline
 
 # switching to repo folder

@@ -110,5 +110,6 @@ dist
 # Scripting file
 # script.sh
 
-# Test
+# Deployment
 package-lock.json
+pipeline-info.json

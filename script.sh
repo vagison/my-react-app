@@ -30,7 +30,7 @@ MESSAGE=""
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 # switching to the root folder
 echo "Switching to the root folder."
-cd ${ROOT_FOLDER}
+cd $ROOT_FOLDER
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -42,13 +42,13 @@ rm -rf $OLD_FOLDER
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 # switching to the repo folder
 echo "Switching to the repo folder"
-cd ${REPO_FOLDER}
+cd $REPO_FOLDER
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 # saving pipeline logs to pipeline-info.json file
 echo "Saving pipeline logs to pipeline-info.json file."
-aws codepipeline get-pipeline-state --name ${PIPELINE_NAME} >pipeline-info.json
+aws codepipeline get-pipeline-state --name $PIPELINE_NAME >pipeline-info.json
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -62,11 +62,11 @@ echo "Commit message: $COMMIT_MESSAGE"
 
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 # repo is successfully pulled
-MESSAGE="Deployment is successfully pulled \nn Commit ID: ${COMMIT_ID} \n Commit message: ${COMMIT_MESSAGE}"
-echo ${MESSAGE}
+MESSAGE="Deployment is successfully pulled \nn Commit ID: $COMMIT_ID \n Commit message: $COMMIT_MESSAGE"
+echo $MESSAGE
 
 # sending the message to Discord
-node ${DISCORD_BOT_PATH} ${DISCORD_BOT_ENV_FILE_PATH} ${MESSAGE}
+node $DISCORD_BOT_PATH $DISCORD_BOT_ENV_FILE_PATH $MESSAGE
 if [ $? -eq 0 ]; then
     echo "Discord Bot's sent the message."
 else
@@ -92,10 +92,10 @@ if [ $? -eq 0 ]; then
     # ----------------------------------------------------------------------------------------------------------------------------------------------------
     # running build process
     MESSAGE="Deployment is building."
-    echo ${MESSAGE}
+    echo $MESSAGE
 
     # sending the message to Discord
-    node ${DISCORD_BOT_PATH} ${DISCORD_BOT_ENV_FILE_PATH} ${MESSAGE}
+    node $DISCORD_BOT_PATH $DISCORD_BOT_ENV_FILE_PATH $MESSAGE
     if [ $? -eq 0 ]; then
         echo "Discord Bot's sent the message."
     else
@@ -106,10 +106,10 @@ if [ $? -eq 0 ]; then
     # if buld process went successfull
     if [ $? -eq 0 ]; then
         MESSAGE="Build process went successfull."
-        echo ${MESSAGE}
+        echo $MESSAGE
 
         # sending the message to Discord
-        node ${DISCORD_BOT_PATH} ${DISCORD_BOT_ENV_FILE_PATH} ${MESSAGE}
+        node $DISCORD_BOT_PATH $DISCORD_BOT_ENV_FILE_PATH $MESSAGE
         if [ $? -eq 0 ]; then
             echo "Discord Bot's sent the message."
         else
@@ -159,11 +159,11 @@ if [ $? -eq 0 ]; then
         fi
 
         # deployment is successfully deployed
-        MESSAGE="Deployment is successfully deployed \nn Commit ID: ${COMMIT_ID} \n Commit message: ${COMMIT_MESSAGE}"
-        echo ${MESSAGE}
+        MESSAGE="Deployment is successfully deployed \nn Commit ID: $COMMIT_ID \n Commit message: $COMMIT_MESSAGE"
+        echo $MESSAGE
 
         # sending the message to Discord
-        node ${DISCORD_BOT_PATH} ${DISCORD_BOT_ENV_FILE_PATH} ${MESSAGE}
+        node $DISCORD_BOT_PATH $DISCORD_BOT_ENV_FILE_PATH $MESSAGE
         if [ $? -eq 0 ]; then
             echo "Discord Bot's sent the message."
         else
@@ -173,10 +173,10 @@ if [ $? -eq 0 ]; then
     # if there was an error during build phase
     else
         MESSAGE="There was an error during build phase."
-        echo ${MESSAGE}
+        echo $MESSAGE
 
         # sending the message to Discord
-        node ${DISCORD_BOT_PATH} ${DISCORD_BOT_ENV_FILE_PATH} ${MESSAGE}
+        node $DISCORD_BOT_PATH $DISCORD_BOT_ENV_FILE_PATH $MESSAGE
         if [ $? -eq 0 ]; then
             echo "Discord Bot's sent the message."
         else

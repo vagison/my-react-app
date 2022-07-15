@@ -66,7 +66,7 @@ MESSAGE="Deployment is successfully pulled \nn Commit ID: $COMMIT_ID \n Commit m
 echo $MESSAGE
 
 # sending the message to Discord
-node $DISCORD_BOT_PATH $DISCORD_BOT_ENV_FILE_PATH $MESSAGE
+node $DISCORD_BOT_PATH $DISCORD_BOT_ENV_FILE_PATH logMessage $MESSAGE
 if [ $? -eq 0 ]; then
     echo "Discord Bot's sent the message."
 else
@@ -95,7 +95,7 @@ if [ $? -eq 0 ]; then
     echo $MESSAGE
 
     # sending the message to Discord
-    node $DISCORD_BOT_PATH $DISCORD_BOT_ENV_FILE_PATH $MESSAGE
+    node $DISCORD_BOT_PATH $DISCORD_BOT_ENV_FILE_PATH logMessage $MESSAGE
     if [ $? -eq 0 ]; then
         echo "Discord Bot's sent the message."
     else
@@ -109,7 +109,7 @@ if [ $? -eq 0 ]; then
         echo $MESSAGE
 
         # sending the message to Discord
-        node $DISCORD_BOT_PATH $DISCORD_BOT_ENV_FILE_PATH $MESSAGE
+        node $DISCORD_BOT_PATH $DISCORD_BOT_ENV_FILE_PATH logMessage $MESSAGE
         if [ $? -eq 0 ]; then
             echo "Discord Bot's sent the message."
         else
@@ -162,9 +162,17 @@ if [ $? -eq 0 ]; then
         echo $MESSAGE
 
         # sending the message to Discord
-        node $DISCORD_BOT_PATH $DISCORD_BOT_ENV_FILE_PATH $MESSAGE
+        node $DISCORD_BOT_PATH $DISCORD_BOT_ENV_FILE_PATH logMessage $MESSAGE
         if [ $? -eq 0 ]; then
             echo "Discord Bot's sent the message."
+        else
+            echo "There was an error with the bot."
+        fi
+
+        # removing previous messages from Discord
+        node $DISCORD_BOT_PATH $DISCORD_BOT_ENV_FILE_PATH removeMessages
+        if [ $? -eq 0 ]; then
+            echo "Discord Bot's removed previous messages."
         else
             echo "There was an error with the bot."
         fi

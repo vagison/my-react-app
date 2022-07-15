@@ -10,7 +10,7 @@ echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 echo "Adding variables."
 
 # port variable
-PORT=3001
+PORT=3051
 # foldering variables
 ROOT_FOLDER=~/testingReact/
 REPO_FOLDER=./my-react-app/

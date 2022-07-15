@@ -62,14 +62,11 @@ echo "Commit message: $COMMIT_MESSAGE"
 
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 # repo is successfully pulled
-MESSAGE="Deployment is successfully pulled 
-
-Commit ID: $COMMIT_ID
-Commit message: $COMMIT_MESSAGE"
+MESSAGE="Deployment is successfully pulled \nn Commit ID: $COMMIT_ID \n Commit message: $COMMIT_MESSAGE"
 echo $MESSAGE
 
 # sending the message to Discord
-node $DISCORD_BOT_PATH $DISCORD_BOT_ENV_FILE_PATH "$MESSAGE"
+node $DISCORD_BOT_PATH $DISCORD_BOT_ENV_FILE_PATH $MESSAGE
 if [ $? -eq 0 ]; then
     echo "Discord Bot's sent the message."
 else
@@ -98,7 +95,7 @@ if [ $? -eq 0 ]; then
     echo $MESSAGE
 
     # sending the message to Discord
-    node $DISCORD_BOT_PATH $DISCORD_BOT_ENV_FILE_PATH "$MESSAGE"
+    node $DISCORD_BOT_PATH $DISCORD_BOT_ENV_FILE_PATH $MESSAGE
     if [ $? -eq 0 ]; then
         echo "Discord Bot's sent the message."
     else
@@ -112,7 +109,7 @@ if [ $? -eq 0 ]; then
         echo $MESSAGE
 
         # sending the message to Discord
-        node $DISCORD_BOT_PATH $DISCORD_BOT_ENV_FILE_PATH "$MESSAGE"
+        node $DISCORD_BOT_PATH $DISCORD_BOT_ENV_FILE_PATH $MESSAGE
         if [ $? -eq 0 ]; then
             echo "Discord Bot's sent the message."
         else
@@ -161,14 +158,11 @@ if [ $? -eq 0 ]; then
         fi
 
         # deployment is successfully deployed
-        MESSAGE="Deployment is successfully deployed
-        
-        Commit ID: $COMMIT_ID
-        Commit message: $COMMIT_MESSAGE"
+        MESSAGE="Deployment is successfully deployed \nn Commit ID: $COMMIT_ID \n Commit message: $COMMIT_MESSAGE"
         echo $MESSAGE
 
         # sending the message to Discord
-        node $DISCORD_BOT_PATH $DISCORD_BOT_ENV_FILE_PATH "$MESSAGE"
+        node $DISCORD_BOT_PATH $DISCORD_BOT_ENV_FILE_PATH $MESSAGE
         if [ $? -eq 0 ]; then
             echo "Discord Bot's sent the message."
         else
@@ -181,7 +175,7 @@ if [ $? -eq 0 ]; then
         echo $MESSAGE
 
         # sending the message to Discord
-        node $DISCORD_BOT_PATH $DISCORD_BOT_ENV_FILE_PATH "$MESSAGE"
+        node $DISCORD_BOT_PATH $DISCORD_BOT_ENV_FILE_PATH $MESSAGE
         if [ $? -eq 0 ]; then
             echo "Discord Bot's sent the message."
         else

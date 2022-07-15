@@ -183,7 +183,7 @@ if [ $? -eq 0 ]; then
         echo $MESSAGE
 
         # sending the message to Discord
-        node $DISCORD_BOT_PATH $DISCORD_BOT_ENV_FILE_PATH $MESSAGE
+        node $DISCORD_BOT_PATH $DISCORD_BOT_ENV_FILE_PATH logMessage $MESSAGE
         if [ $? -eq 0 ]; then
             echo "Discord Bot's sent the message."
         else

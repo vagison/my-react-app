@@ -248,6 +248,25 @@ fi
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
+# sending a separating line to Discord
+echo "Sending a separating line to Discord"
+
+MESSAGE="-------------------------------------------"
+echo $MESSAGE
+
+# sending the message to Discord
+node $DISCORD_BOT_SCRIPT $DISCORD_BOT_ENV_FILE_PATH SEND_MESSAGE $MESSAGE
+if [ $? -eq 0 ]; then
+    echo "Discord Bot's sent the message."
+
+    # removing messages-ids.txt file
+    rm $DISCORD_BOT_MESSAGES_IDS
+else
+    echo "There was an error with the bot."
+fi
+# ----------------------------------------------------------------------------------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------------------------------------------------------------------------------
 # ending the magic
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 echo "The magic is over, but not forever!"

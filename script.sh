@@ -22,8 +22,10 @@ PIPELINE_NAME=my-react-app-pipeline
 # app variables
 RUNNING_APP_NAME=myReactApp
 # discord bot variables
-DISCORD_BOT_PATH="../discord-bot/src/bot.js"
-DISCORD_BOT_ENV_FILE_PATH="../discord-bot/.env"
+DISCORD_BOT_FOLDER=~/testingReact/discord-bot/
+DISCORD_BOT_ENV_FILE_PATH=$DISCORD_BOT_FOLDER".env"
+DISCORD_BOT_SCRIPT=$DISCORD_BOT_FOLDER"src/bot.js"
+DISCORD_BOT_MESSAGES_IDS=$DISCORD_BOT_FOLDER"messages-ids.txt"
 MESSAGE=""
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -34,15 +36,15 @@ cd $ROOT_FOLDER
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
-# removing old build's folder
-echo "Removing old build's folder."
-rm -rf $OLD_FOLDER
+# creating the temporary folder
+echo "Creating the temporary folder."
+mkdir $TEMP_FOLDER
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
-# switching to the repo folder
-echo "Switching to the repo folder"
-cd $REPO_FOLDER
+# switching to the temporary folder
+echo "Switching to the temporary folder"
+cd $TEMP_FOLDER
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -66,7 +68,7 @@ MESSAGE="Deployment is successfully pulled \nn Commit ID: $COMMIT_ID \n Commit m
 echo $MESSAGE
 
 # sending the message to Discord
-node $DISCORD_BOT_PATH $DISCORD_BOT_ENV_FILE_PATH logMessage $MESSAGE
+node $DISCORD_BOT_SCRIPT $DISCORD_BOT_ENV_FILE_PATH SEND_MESSAGE $MESSAGE
 if [ $? -eq 0 ]; then
     echo "Discord Bot's sent the message."
 else
@@ -75,9 +77,26 @@ fi
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
-# removing package-lock.json to ensure previous version of package-lock.json is truly gone
-echo "Removing package-lock.json."
-rm package-lock.json
+# switching to the root folder
+echo "Switching to the root folder."
+cd $ROOT_FOLDER
+# ----------------------------------------------------------------------------------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------------------------------------------------------------------------------
+# removing old build's folder
+echo "Removing old build's folder."
+rm -rf $OLD_FOLDER
+# ----------------------------------------------------------------------------------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------------------------------------------------------------------------------
+# copying the files from the repo folder into the temporary folder
+cp -r $REPO_FOLDER. $TEMP_FOLDER
+# ----------------------------------------------------------------------------------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------------------------------------------------------------------------------
+# switching to the temporary folder
+echo "Switching to the temporary folder"
+cd $TEMP_FOLDER
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -85,17 +104,17 @@ rm package-lock.json
 echo "Installing dependencies."
 npm install
 
-# if dependencies installation went successfull
+# if dependencies installation went successful
 if [ $? -eq 0 ]; then
-    echo "Dependencies installation went successfull."
+    echo "Dependencies installation went successful."
 
     # ----------------------------------------------------------------------------------------------------------------------------------------------------
     # running build process
-    MESSAGE="Deployment is building."
+    MESSAGE="Deployment is building..."
     echo $MESSAGE
 
     # sending the message to Discord
-    node $DISCORD_BOT_PATH $DISCORD_BOT_ENV_FILE_PATH logMessage $MESSAGE
+    node $DISCORD_BOT_SCRIPT $DISCORD_BOT_ENV_FILE_PATH SEND_MESSAGE $MESSAGE
     if [ $? -eq 0 ]; then
         echo "Discord Bot's sent the message."
     else
@@ -103,13 +122,13 @@ if [ $? -eq 0 ]; then
     fi
 
     npm run build
-    # if buld process went successfull
+    # if buld process went successful
     if [ $? -eq 0 ]; then
-        MESSAGE="Build process went successfull."
+        MESSAGE="Build process went successful!"
         echo $MESSAGE
 
         # sending the message to Discord
-        node $DISCORD_BOT_PATH $DISCORD_BOT_ENV_FILE_PATH logMessage $MESSAGE
+        node $DISCORD_BOT_SCRIPT $DISCORD_BOT_ENV_FILE_PATH SEND_MESSAGE $MESSAGE
         if [ $? -eq 0 ]; then
             echo "Discord Bot's sent the message."
         else
@@ -118,15 +137,7 @@ if [ $? -eq 0 ]; then
 
         # switching to the root folder
         echo "Switching to the root folder."
-        cd ../
-
-        # creating temporary folder
-        echo "Creating temporary folder."
-        mkdir $TEMP_FOLDER
-
-        # copying build files into temporary folder
-        echo "Copying build files into temporary folder."
-        cp -r $REPO_FOLDER. $TEMP_FOLDER
+        cd $ROOT_FOLDER
 
         # stopping running app
         echo "Stopping running app."
@@ -152,8 +163,9 @@ if [ $? -eq 0 ]; then
             echo "Running app's process exists, launching the app."
             pm2 start $RUNNING_APP_NAME
         else
-            # running app's process doesn't exist, creating a process for it and then launching it
+            # running app's process doesn't exist, creating a process for it
             echo "Running app's process doesn't exist, creating a process for it and then launching it."
+            # launching the process
             pm2 start "serve -s build -l $PORT" --name $RUNNING_APP_NAME
         fi
 
@@ -162,19 +174,22 @@ if [ $? -eq 0 ]; then
         echo $MESSAGE
 
         # sending the message to Discord
-        node $DISCORD_BOT_PATH $DISCORD_BOT_ENV_FILE_PATH logMessage $MESSAGE
+        node $DISCORD_BOT_SCRIPT $DISCORD_BOT_ENV_FILE_PATH SEND_MESSAGE $MESSAGE
         if [ $? -eq 0 ]; then
             echo "Discord Bot's sent the message."
-        else
-            echo "There was an error with the bot."
-        fi
 
-        # removing previous messages from Discord
-        node $DISCORD_BOT_PATH $DISCORD_BOT_ENV_FILE_PATH removeMessages
-        if [ $? -eq 0 ]; then
-            echo "Discord Bot's removed previous messages."
+            # removing previous messages from Discord
+            node $DISCORD_BOT_SCRIPT $DISCORD_BOT_ENV_FILE_PATH REMOVE_MESSAGES
+            if [ $? -eq 0 ]; then
+                echo "Discord Bot's removed previous messages."
+            else
+                echo "There was an error with the bot."
+            fi
         else
             echo "There was an error with the bot."
+
+            # removing messages-ids.txt file
+            rm $DISCORD_BOT_MESSAGES_IDS
         fi
 
     # if there was an error during build phase
@@ -183,18 +198,33 @@ if [ $? -eq 0 ]; then
         echo $MESSAGE
 
         # sending the message to Discord
-        node $DISCORD_BOT_PATH $DISCORD_BOT_ENV_FILE_PATH logMessage $MESSAGE
+        node $DISCORD_BOT_SCRIPT $DISCORD_BOT_ENV_FILE_PATH SEND_MESSAGE $MESSAGE
         if [ $? -eq 0 ]; then
             echo "Discord Bot's sent the message."
         else
             echo "There was an error with the bot."
         fi
+
+        # removing messages-ids.txt file
+        rm $DISCORD_BOT_MESSAGES_IDS
     fi
     # ----------------------------------------------------------------------------------------------------------------------------------------------------
 
 # if dependencies installation went unsuccessfull
 else
-    echo "There was an error during dependencies installation phase."
+    MESSAGE="There was an error during dependencies installation phase."
+    echo $MESSAGE
+
+    # sending the message to Discord
+    node $DISCORD_BOT_SCRIPT $DISCORD_BOT_ENV_FILE_PATH SEND_MESSAGE $MESSAGE
+    if [ $? -eq 0 ]; then
+        echo "Discord Bot's sent the message."
+    else
+        echo "There was an error with the bot."
+    fi
+
+    # removing messages-ids.txt file
+    rm $DISCORD_BOT_MESSAGES_IDS
 fi
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 

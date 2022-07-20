@@ -9,23 +9,28 @@ echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 # adding variables
 echo "Adding variables."
 
-# port variable
-PORT=3051
 # foldering variables
 ROOT_FOLDER=~/testingReact/
 REPO_FOLDER=./my-react-app/
 RUNNING_FOLDER=./running/
 TEMP_FOLDER=./tmp/
 OLD_FOLDER=./old/
+
 # pipeline variables
 PIPELINE_NAME=my-react-app-pipeline
+
 # app variables
+RUNNING_APP_PORT=3051
+RUNNING_APP_COMMAND="serve -s build -l $RUNNING_APP_PORT"
 RUNNING_APP_NAME=myReactApp
+
 # discord bot variables
 DISCORD_BOT_FOLDER=~/testingReact/discord-bot/
 DISCORD_BOT_ENV_FILE_PATH=$DISCORD_BOT_FOLDER".env"
 DISCORD_BOT_SCRIPT=$DISCORD_BOT_FOLDER"src/bot.js"
 DISCORD_BOT_MESSAGES_IDS=$DISCORD_BOT_FOLDER"messages-ids.txt"
+
+# messaging variables
 MESSAGE=""
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -166,7 +171,7 @@ if [ $? -eq 0 ]; then
             # running app's process doesn't exist, creating a process for it
             echo "Running app's process doesn't exist, creating a process for it and then launching it."
             # launching the process
-            pm2 start "serve -s build -l $PORT" --name $RUNNING_APP_NAME
+            pm2 start $RUNNING_APP_COMMAND --name $RUNNING_APP_NAME
         fi
 
         # deployment is successfully deployed

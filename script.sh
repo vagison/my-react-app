@@ -212,6 +212,13 @@ if [ $? -eq 0 ]; then
 
         # removing messages-ids.txt file
         rm $DISCORD_BOT_MESSAGES_IDS
+
+        # switching to the root folder
+        echo "Switching to the root folder."
+        cd $ROOT_FOLDER
+
+        # removing the temporary folder
+        rm -rf $TEMP_FOLDER
     fi
     # ----------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -230,6 +237,13 @@ else
 
     # removing messages-ids.txt file
     rm $DISCORD_BOT_MESSAGES_IDS
+
+    # switching to the root folder
+    echo "Switching to the root folder."
+    cd $ROOT_FOLDER
+
+    # removing the temporary folder
+    rm -rf $TEMP_FOLDER
 fi
 # ----------------------------------------------------------------------------------------------------------------------------------------------------
 
